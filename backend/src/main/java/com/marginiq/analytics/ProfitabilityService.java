@@ -2,6 +2,7 @@ package com.marginiq.analytics;
 
 import com.marginiq.sales.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.math.*;
 import java.time.*;
 import java.util.*;
@@ -11,6 +12,7 @@ public class ProfitabilityService {
     private final SaleRepository sales;
     public ProfitabilityService(SaleRepository sales){ this.sales=sales; }
 
+    @Transactional(readOnly = true)
     public Map<String,Object> summary(int days) {
         var rows=sales.findBySoldAtBetween(LocalDateTime.now().minusDays(days), LocalDateTime.now());
         BigDecimal revenue=BigDecimal.ZERO, cogs=BigDecimal.ZERO, discounts=BigDecimal.ZERO, waste=BigDecimal.ZERO;
@@ -34,3 +36,4 @@ public class ProfitabilityService {
         return r;
     }
 }
+

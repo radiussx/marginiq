@@ -1,4 +1,10 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080";
+const SERVER_API_URL = process.env.API_URL ?? "http://backend:8080";
+const BROWSER_API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080";
+
+const API_URL =
+  typeof window === "undefined"
+    ? SERVER_API_URL
+    : BROWSER_API_URL;
 
 export type Summary = {
   periodDays: number;
@@ -55,7 +61,7 @@ export async function simulatePromotion(input: {
   expectedDemandLift: number;
   baselineUnits: number;
 }) {
-  const response = await fetch(`${API_URL}/api/pricing/simulate`, {
+  const response = await fetch("/api/pricing/simulate", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(input)
@@ -64,3 +70,6 @@ export async function simulatePromotion(input: {
   if (!response.ok) throw new Error(data.error ?? "Unable to simulate promotion");
   return data;
 }
+
+
+

@@ -4,6 +4,7 @@ import com.marginiq.sales.Sale;
 import com.marginiq.sales.SaleItem;
 import com.marginiq.sales.SaleRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -18,6 +19,7 @@ public class CategoryAnalyticsService {
         this.sales = sales;
     }
 
+    @Transactional(readOnly = true)
     public List<Map<String, Object>> categoryProfitability(int days) {
         List<Sale> rows = sales.findBySoldAtBetween(
                 LocalDateTime.now().minusDays(days), LocalDateTime.now());
@@ -55,3 +57,4 @@ public class CategoryAnalyticsService {
         return result;
     }
 }
+
