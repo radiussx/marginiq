@@ -1,0 +1,7 @@
+{
+  "name": "marginiq-frontend",
+  "private": true,
+  "scripts": {"dev":"next dev","build":"next build","start":"next start"},
+  "dependencies": {"next":"15.5.4","react":"19.1.1","react-dom":"19.1.1"},
+  "devDependencies": {"typescript":"^5.6.3","@types/node":"^22.0.0","@types/react":"^19.0.0","@types/react-dom":"^19.0.0"}
+}
